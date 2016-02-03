@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+    </style>
+</head>
+<body onload=colorGame()>
+    <script>
+        var colors = ['blue','cyan','gold','gray','magenta','orange','red','white','yellow'];
+
+        function menu()
+        {
+            return prompt("I am thinking of one of these colors: \n\n" + colors     + "\n\n What color am I thinking of?");         
+        }    
+        
+        function colorInList(color)
+        {
+            if ( colors.indexOf(color) === -1)
+            {
+                alert("Sorry, I don't recognize your color. \n\n" + " Please try again.")            
+            }                             
+        }
+        
+        function isColorCorrect(yourColor, myColor)
+        {
+            if (myColor === yourColor)
+            {              
+                return true;
+            }
+            
+            var message = "Sorry, your geuess is not correct!\n\n"
+            if ( yourColor < myColor )
+            {
+                message += "Hint: your color is alphabetically lower than mine.\n\n";
+            }
+            else
+            {
+                message += "Hint: your color is alphabetically higher than mine.\n\n";                              
+            }
+            
+            message += "Pleaase try again.";
+            
+            alert(message);
+            
+            return false;
+        }
+        
+        function changeBackgroundColor(color) 
+        {
+            document.body.style.background = color;
+        }
+        
+        function colorGame()
+        {
+            var numGuess   = 0;
+            var yourColor  = 'blue';
+            var colorFound = false;
+            
+            var colorIndex = Math.floor( Math.random() *            colors.length );
+            
+            var myColor = colors[colorIndex];     
+            
+            while (!colorFound)
+            {
+                yourColor = menu();
+                numGuess++;
+            
+                colorInList(yourColor);
+                
+                colorFound = isColorCorrect(yourColor, myColor);
+            }
+            
+            var message = "Congratulations, you have guessed the color!\n\n" + "It took you " + numGuess + " guesses to finish the game!\n\n" + "You can see the color in the background.";      
+            
+            changeBackgroundColor(myColor) 
+            
+            alert(message);                   
+            
+        }        
+        
+    </script>
+
+    
+</body>
+</html>
